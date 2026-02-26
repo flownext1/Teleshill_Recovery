@@ -1,0 +1,21 @@
+DM CAMPAIGN RESULTS
+==================================================
+Accounts used: 1
+Total groups scanned: 3
+Total successfully sent: 2
+Total failed: 0
+
+==================================================
+ALL GROUPS SCANNED (valid marketing targets):
+  - not a kabal (Channel)
+  - Flashchain AI (Channel)
+  - SatoshiStreetBets (Channel)
+
+==================================================
+DETAILED RESULTS:
+SUCCESS: not a kabal (Channel) - Image+text
+SUCCESS: Flashchain AI (Channel) - Text (image blocked)
+FAILED: SatoshiStreetBets - You can't write in this chat (caused by SendMessageRequest)
+
+=== Account +15642010068 Summary ===
+Groups scanned: 3, Sent: 2, Failed: 0

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+TeleshillEnv/
+teleshill_new/
+
+# Sessions (sensitive - contain auth)
+session/*.session
+telethon_sessions/*.session
+pyrogram_sessions/*.session
+
+# Config with API keys
+config.json
+testconfig.json
+fullconfig.json
+banned.json
+
+# Large media
+profiles/*.png
+profiles/*.jpg
+memes/*.png
+memes/*.jpg
+memes/*.gif
+daily_message/meme.png
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
