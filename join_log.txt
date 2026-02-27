@@ -4,3 +4,20 @@
 2026-02-27 11:27:19 - Account +19193393099 (Pyro From The Moon) joined https://t.me/+Wup2YHn4RAw3ZGJh
 2026-02-27 11:27:21 - Account +15642010068 (Cha King | BIG NATION GROUP) joined https://t.me/+Wup2YHn4RAw3ZGJh
 2026-02-27 11:27:45 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: UserAlreadyParticipantError
+2026-02-27 11:46:41 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 11:46:47 - Account +16562171198 SQLITE ERROR: database is locked
+2026-02-27 11:46:53 - Account +16562171198 SQLITE ERROR DURING DISCONNECT: database is locked
+2026-02-27 11:46:55 - Account +17043018796 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 11:46:56 - Account +19193393099 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 11:46:58 - Account +15642010068 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 11:49:53 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: UserAlreadyParticipantError
+2026-02-27 11:50:29 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: UserAlreadyParticipantError
+2026-02-27 11:50:50 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 383 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:51:23 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 350 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:52:00 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 313 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:52:45 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 268 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:53:08 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 245 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:53:24 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 229 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:54:53 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: A wait of 140 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:55:43 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 90 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 11:56:07 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 66 seconds is required (caused by ImportChatInviteRequest)
