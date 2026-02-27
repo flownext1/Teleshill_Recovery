@@ -26,7 +26,23 @@ api_hash = config['api_hash']
 group_target = config['join_group']
 accounts = config['accounts']
 
+# Load names from names.json
+try:
+    with open('names.json', 'r') as f:
+        names_config = json.loads(f.read())
+        names = names_config.get('names', [])
+except:
+    names = []
+
 folder_session = 'telethon_sessions/'
+
+def get_name_for_phone(phone):
+    """Get the display name for a phone number from names.json"""
+    try:
+        idx = accounts.index(phone)
+        return names[idx] if idx < len(names) else phone
+    except:
+        return phone
 
 async def join_group(client, group_link, phone):
     try:
@@ -69,12 +85,13 @@ async def process_account(phone):
     print(f"[PROCESS] Starting processing for account: {phone}")
     session_path = folder_session + phone
     tried_telethon = False
+    username = get_name_for_phone(phone)
     while True:
         try:
             client = TelegramClient(session_path, api_id, api_hash)
             
             async def custom_phone():
-                print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                print(f"[CODE REQUESTED] Enter code for {phone} ({username}): ")
                 return input(f"[CODE REQUESTED] Enter code for {phone}: ")
             
             await client.start(phone=phone, code_callback=custom_phone)

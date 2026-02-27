@@ -25,3 +25,4 @@
 2026-02-27 12:43:03 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
 2026-02-27 12:49:17 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
 2026-02-27 12:49:35 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 12:58:21 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
