@@ -38,14 +38,18 @@ folder_session = os.path.join(root_path, 'telethon_sessions')
 
 # Function to join and click button in a group
 async def join_and_click(client, group_url):
+    from telethon.errors.rpcerrorlist import UserAlreadyParticipantError
     # Join group using the correct method for the link type
-    if group_url.startswith("https://t.me/+") or group_url.startswith("https://t.me/joinchat/"):
-        invite_code = group_url.split("/")[-1].replace("+", "")
-        await client(ImportChatInviteRequest(invite_code))
-        print(f"Joined (invite) {group_url}")
-    else:
-        await client(JoinChannelRequest(group_url))
-        print(f"Joined {group_url}")
+    try:
+        if group_url.startswith("https://t.me/+") or group_url.startswith("https://t.me/joinchat/"):
+            invite_code = group_url.split("/")[-1].replace("+", "")
+            await client(ImportChatInviteRequest(invite_code))
+            print(f"Joined (invite) {group_url}")
+        else:
+            await client(JoinChannelRequest(group_url))
+            print(f"Joined {group_url}")
+    except UserAlreadyParticipantError:
+        print(f"Already a member of {group_url}, continuing...")
     sleep(5)
 
     # Then, get the most recent message in the group
