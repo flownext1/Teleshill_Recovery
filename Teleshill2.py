@@ -521,10 +521,21 @@ async def resolve_group(client, group):
     if group.startswith("https://t.me/+") or group.startswith("https://t.me/joinchat/"):
         invite_code = group.split("/")[-1].replace("+", "")
         print(f"[RESOLVE_GROUP] Using ImportChatInviteRequest with invite_code: {invite_code}")
-        updates = await client(ImportChatInviteRequest(invite_code))
-        entity = await client.get_entity(updates.chats[0].id)
-        print(f"[RESOLVE_GROUP] Resolved entity from invite: {entity} (type: {type(entity)})")
-        return entity
+        try:
+            updates = await client(ImportChatInviteRequest(invite_code))
+            entity = await client.get_entity(updates.chats[0].id)
+            print(f"[RESOLVE_GROUP] Resolved entity from invite: {entity} (type: {type(entity)})")
+            return entity
+        except Exception as e:
+            if "already a participant" in str(e).lower():
+                # Already in group, try to get entity by ID from chatlists
+                async for dialog in client.iter_dialogs():
+                    if hasattr(dialog.entity, 'invite_hash') and dialog.entity.invite_hash == invite_code:
+                        return dialog.entity
+                # If that fails, try searching through recent chats
+                print(f"[RESOLVE_GROUP] Already participant, searching for group...")
+            print(f"[RESOLVE_GROUP] Error resolving group: {e}")
+            raise
     elif group.startswith("https://t.me/"):
         username = group.split("/")[-1]
         print(f"[RESOLVE_GROUP] Using get_entity with username: {username}")
