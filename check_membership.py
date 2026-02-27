@@ -17,7 +17,16 @@ async def check_membership(phone_number, api_id, api_hash, group_target, member_
         await client.start()
     except errors.PhoneNumberInvalidError:
         logging.error(f'Invalid phone number: {phone_number}')
-        return
+        return member_count, non_member_count
+    except EOFError:
+        logging.error(f'Session expired or not found for {phone_number}. Needs re-authentication.')
+        return member_count, non_member_count
+    except Exception as e:
+        if 'database is locked' in str(e):
+            logging.error(f'Database locked for {phone_number}. Try again later.')
+        else:
+            logging.error(f'Error starting client for {phone_number}: {str(e)}')
+        return member_count, non_member_count
 
     if await client.is_user_authorized():
         try:
@@ -31,10 +40,10 @@ async def check_membership(phone_number, api_id, api_hash, group_target, member_
             non_member_count += 1
         except Exception as e:
             logging.error(f'Error checking membership for {phone_number}: {str(e)}')
-        await client.disconnect()
     else:
         logging.info(f'{phone_number} login fail')
 
+    await client.disconnect()
     return member_count, non_member_count
 
 async def main():
