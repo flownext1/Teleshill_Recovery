@@ -323,6 +323,13 @@ async def join_all_groups_with_config_accounts(config, accounts):
                                 failed += 1
                                 account_failed_on_link[phone].add(link)
                                 print(f"[PERM FAIL] {link} | {e}")
+                            elif "No user has" in msg and "as username" in msg:
+                                # Invalid link - skip all accounts for this link immediately
+                                print(f"[INVALID LINK] {link} - username does not exist, skipping all accounts for this link")
+                                for p in accounts:
+                                    account_failed_on_link[p].add(link)
+                                await client.disconnect()
+                                break
                             else:
                                 failed += 1
                                 account_failed_on_link[phone].add(link)
