@@ -141,6 +141,14 @@ async def update_account_details(client, name, phone):
                 print(f"Updated username for account {phone} to {username}\n\n")
                 break
             except Exception as e:
+                import re
+                wait_match = re.search(r'A wait of (\d+) seconds is required', str(e))
+                if wait_match:
+                    wait_time = int(wait_match.group(1)) + 1
+                    print(f"Flood wait for {phone}: need to wait {wait_time} seconds. Sleeping...")
+                    import asyncio
+                    await asyncio.sleep(wait_time)
+                    continue
                 try:
                     me = await client.get_me()
                     current_username = me.username if hasattr(me, 'username') else None
