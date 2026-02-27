@@ -66,7 +66,7 @@ api_hash = config['api_hash']
 accounts = config['accounts']
 names = config_names['names']
 
-folder_session = 'session/'
+folder_session = 'telethon_sessions/'
 profiles_directory = 'profiles/'  # Directory where profile images are stored
 
 # Debug output after environment selection
@@ -173,7 +173,7 @@ async def change_profile_picture(client, phone, profile_index):
         print(f"Error changing profile picture for {phone}: {e}\n\n")
 
 async def process_account(phone, name, profile_index):
-    client = TelegramClient('telethon/' + phone, api_id, api_hash)
+    client = TelegramClient('telethon_sessions/' + phone, api_id, api_hash)
     await client.start(phone)
     try:
         if await client.is_user_authorized():
@@ -255,7 +255,7 @@ async def join_all_groups_with_config_accounts(config, accounts):
                 joined_this_group = False
 
                 for phone in available_accounts:
-                    session_path = f"telethon/{phone}.session"
+                    session_path = f"telethon_sessions/{phone}.session"
                     if not os.path.exists(session_path):
                         print(f"[MISSING SESSION] No session for {phone}, skipping.")
                         continue
@@ -337,13 +337,13 @@ async def check_group_activity():
 
     # Use the first available session for checking
     for phone in accounts:
-        session_path = f"telethon/{phone}.session"
+        session_path = f"telethon_sessions/{phone}.session"
         if os.path.exists(session_path):
             api_id = config['api_id']
             api_hash = config['api_hash']
             break
     else:
-        print("No valid /telethon session found for any account.")
+        print("No valid /telethon_sessions session found for any account.")
         return
 
     active = []
@@ -574,9 +574,9 @@ async def react_hearts_all_accounts():
                     await client.disconnect()
                 break  # Success, exit loop
             except sqlite3.OperationalError as e:
-                if not tried_telethon and os.path.exists(f"telethon/{phone}.session"):
-                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon/{phone}.session instead.")
-                    session_path = f"telethon/{phone}"
+                if not tried_telethon and os.path.exists(f"telethon_sessions/{phone}.session"):
+                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon_sessions/{phone}.session instead.")
+                    session_path = f"telethon_sessions/{phone}"
                     tried_telethon = True
                     continue
                 else:
@@ -644,9 +644,9 @@ async def react_x_times_all_accounts(x):
                     await client.disconnect()
                 break  # Success, exit loop
             except sqlite3.OperationalError as e:
-                if not tried_telethon and os.path.exists(f"telethon/{phone}.session"):
-                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon/{phone}.session instead.")
-                    session_path = f"telethon/{phone}"
+                if not tried_telethon and os.path.exists(f"telethon_sessions/{phone}.session"):
+                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon_sessions/{phone}.session instead.")
+                    session_path = f"telethon_sessions/{phone}"
                     tried_telethon = True
                     continue
                 else:
@@ -702,9 +702,9 @@ async def react_remove_all_accounts():
                     await client.disconnect()
                 break  # Success, exit loop
             except sqlite3.OperationalError as e:
-                if not tried_telethon and os.path.exists(f"telethon/{phone}.session"):
-                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon/{phone}.session instead.")
-                    session_path = f"telethon/{phone}"
+                if not tried_telethon and os.path.exists(f"telethon_sessions/{phone}.session"):
+                    print(f"[WARN] Session error for {phone} at {session_path}, trying telethon_sessions/{phone}.session instead.")
+                    session_path = f"telethon_sessions/{phone}"
                     tried_telethon = True
                     continue
                 else:
