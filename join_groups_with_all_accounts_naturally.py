@@ -72,7 +72,12 @@ async def process_account(phone):
     while True:
         try:
             client = TelegramClient(session_path, api_id, api_hash)
-            await client.start(phone)
+            
+            async def custom_phone():
+                print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+            
+            await client.start(phone=phone, code_callback=custom_phone)
             if await client.is_user_authorized():
                 print(f"Processing with account {phone}")
                 await join_group(client, group_target, phone)

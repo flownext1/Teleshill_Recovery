@@ -65,7 +65,12 @@ async def main():
         for phone in accounts:
             session_name = f"{folder_session}{phone}"
             client = TelegramClient(session_name, api_id, api_hash)
-            await client.start(phone)
+            
+            async def custom_phone():
+                print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+            
+            await client.start(phone=phone, code_callback=custom_phone)
             print(f"Client Created for {phone}")
 
             target_entity = await client.get_entity(target_group)

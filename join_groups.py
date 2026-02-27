@@ -59,8 +59,13 @@ async def join_group(client, group_url, phone):
 
 async def process_account(phone):
     client = TelegramClient(folder_session + phone, api_id, api_hash)
+    
+    async def custom_phone():
+        print(f"[CODE REQUESTED] Enter code for {phone}: ")
+        return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+    
     try:
-        await client.start(phone)
+        await client.start(phone=phone, code_callback=custom_phone)
         if await client.is_user_authorized():
             print(f"Processing with account {phone}")
             await join_group(client, group_target, phone)
@@ -74,7 +79,7 @@ async def process_account(phone):
             print(f"Deleted session file: {session_path}")
         # Re-login
         client = TelegramClient(folder_session + phone, api_id, api_hash)
-        await client.start(phone)  # This will prompt for code
+        await client.start(phone=phone, code_callback=custom_phone)  # This will prompt for code
         if await client.is_user_authorized():
             print(f"Re-logged in with account {phone}")
             await join_group(client, group_target, phone)

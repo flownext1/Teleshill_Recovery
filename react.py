@@ -95,7 +95,11 @@ async def react_with_account(phone, delay_between_accounts, position):
         try:
             print(f"[INFO] Trying session: {session_path}")
             client = TelegramClient(session_path, api_id, api_hash)
-            await client.start(phone)
+            async def custom_phone():
+                print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+            
+            await client.start(phone=phone, code_callback=custom_phone)
             if not await client.is_user_authorized():
                 print(f"[ERROR] Account {phone} is not authorized in session {session_path}. Skipping.")
                 await client.disconnect()
@@ -152,7 +156,11 @@ async def react_to_user_posts(phone, target_users, min_reactions, max_reactions,
         try:
             print(f"[INFO] Trying session: {session_path}")
             client = TelegramClient(session_path, api_id, api_hash)
-            await client.start(phone)
+            async def custom_phone():
+                print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+            
+            await client.start(phone=phone, code_callback=custom_phone)
             if not await client.is_user_authorized():
                 print(f"[ERROR] Account {phone} is not authorized in session {session_path}. Skipping.")
                 await client.disconnect()

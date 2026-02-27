@@ -21,3 +21,7 @@
 2026-02-27 11:54:53 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: A wait of 140 seconds is required (caused by ImportChatInviteRequest)
 2026-02-27 11:55:43 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 90 seconds is required (caused by ImportChatInviteRequest)
 2026-02-27 11:56:07 - Account +18594135055 FAILED to join https://t.me/+Wup2YHn4RAw3ZGJh: A wait of 66 seconds is required (caused by ImportChatInviteRequest)
+2026-02-27 12:40:59 - Account +18594135055 (Crypto Glaze) joined https://t.me/+jKnsrMl6nMViMDEx
+2026-02-27 12:43:03 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 12:49:17 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
+2026-02-27 12:49:35 - Account +18594135055 FAILED to join https://t.me/+jKnsrMl6nMViMDEx: The authenticated user is already a participant of the chat (caused by ImportChatInviteRequest)
