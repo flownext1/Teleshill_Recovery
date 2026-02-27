@@ -84,18 +84,38 @@ with TelegramClient(f"{folder_session}/{first_account}", api_id, api_hash) as cl
     # Set a public link for the supergroup with retry logic
     base_public_link = public_link
     print(f"Attempting to set public link: {base_public_link}")
-    while True:
+    max_attempts = 10
+    attempts = 0
+    username_set = False
+    
+    while attempts < max_attempts:
         try:
             client(functions.channels.UpdateUsernameRequest(
                 channel=public_group_entity,
                 username=public_link
             ))
             print(f"Successfully set public link to: {public_link}")
+            username_set = True
             break
         except UsernameOccupiedError:
+            attempts += 1
             digit = str(random.randint(1, 9))
             public_link = base_public_link + digit
-            print(f"Username {public_link} is already taken, trying {public_link}...")
+            print(f"Username {public_link} is already taken, trying {public_link}... (attempt {attempts}/{max_attempts})")
+        except Exception as e:
+            error_msg = str(e)
+            if "FloodWaitError" in error_msg or "wait of" in error_msg.lower():
+                import re
+                wait_match = re.search(r'A wait of (\d+) seconds is required', error_msg)
+                if wait_match:
+                    wait_time = int(wait_match.group(1))
+                    print(f"[FLOOD WAIT] Need to wait {wait_time} seconds for username {public_link}. Skipping username set.")
+                    break
+            print(f"[WARN] Error setting username: {e}")
+            break
+    
+    if not username_set:
+        print(f"[INFO] Could not set username after {attempts} attempts. Continuing without public link...")
 
     # Call the function to set group photo (if image exists)
     if image_path and os.path.exists(image_path):
