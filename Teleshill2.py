@@ -182,7 +182,12 @@ async def change_profile_picture(client, phone, profile_index):
 
 async def process_account(phone, name, profile_index):
     client = TelegramClient('telethon_sessions/' + phone, api_id, api_hash)
-    await client.start(phone)
+    
+    async def custom_phone():
+        print(f"[CODE REQUESTED] Enter code for {phone} ({name}): ")
+        return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+    
+    await client.start(phone=phone, code_callback=custom_phone)
     try:
         if await client.is_user_authorized():
             print(f"Processing with account {phone}\n\n")
@@ -280,9 +285,14 @@ async def join_all_groups_with_config_accounts(config, accounts):
                     print(f"[LOGIN ATTEMPT] Phone: {phone} Username: {username if username else '(unknown)'}")
                     client = TelegramClient(session_path, api_id, api_hash)
 
+                    # Custom phone handler to show which account needs code
+                    async def custom_phone():
+                        print(f"[CODE REQUESTED] Enter code for {phone} ({username if username else 'unknown'}): ")
+                        return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+
                     try:
                         try:
-                            await client.start(phone)
+                            await client.start(phone=phone, code_callback=custom_phone)
                         except (sqlite3.OperationalError, Exception) as e:
                             print(f"[START ERROR] {e} for {phone}, skipping.")
                             await client.disconnect()
@@ -582,7 +592,12 @@ async def react_hearts_all_accounts():
             try:
                 print(f"[INFO] Trying session: {session_path}")
                 client = TelegramClient(session_path, api_id, api_hash)
-                await client.start(phone)
+                
+                async def custom_phone():
+                    print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                    return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+                
+                await client.start(phone=phone, code_callback=custom_phone)
                 if not await client.is_user_authorized():
                     print(f"[ERROR] Account {phone} is not authorized in session {session_path}. Skipping.")
                     await client.disconnect()
@@ -652,7 +667,12 @@ async def react_x_times_all_accounts(x):
             try:
                 print(f"[INFO] Trying session: {session_path}")
                 client = TelegramClient(session_path, api_id, api_hash)
-                await client.start(phone)
+                
+                async def custom_phone():
+                    print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                    return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+                
+                await client.start(phone=phone, code_callback=custom_phone)
                 if not await client.is_user_authorized():
                     print(f"[ERROR] Account {phone} is not authorized in session {session_path}. Skipping.")
                     await client.disconnect()
@@ -710,7 +730,12 @@ async def react_remove_all_accounts():
             try:
                 print(f"[INFO] Trying session: {session_path}")
                 client = TelegramClient(session_path, api_id, api_hash)
-                await client.start(phone)
+                
+                async def custom_phone():
+                    print(f"[CODE REQUESTED] Enter code for {phone}: ")
+                    return input(f"[CODE REQUESTED] Enter code for {phone}: ")
+                
+                await client.start(phone=phone, code_callback=custom_phone)
                 if not await client.is_user_authorized():
                     print(f"[ERROR] Account {phone} is not authorized in session {session_path}. Skipping.")
                     await client.disconnect()
