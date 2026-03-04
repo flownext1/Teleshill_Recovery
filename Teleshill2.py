@@ -19,6 +19,13 @@ import telethon
 from telethon.tl.types import ReactionEmoji
 from datetime import datetime, timedelta, timezone
 import sys
+sys.path.insert(0, 'daily_message')
+
+try:
+    from daily_message import daily_message_menu
+except ImportError:
+    daily_message_menu = None
+
 print(f"[DEBUG] Telethon version: {telethon.__version__}")
 # Add terminal control screen
 # ANSI escape codes for colors
@@ -523,10 +530,14 @@ def utilities_menu():
     while True:
         print("\nUtilities & Tools:")
         print("1. Modify config variables (target group, etc.)")  # Option 24
+        if daily_message_menu:
+            print("2. Daily Message Sender (DM target once/day)")
         print("0. Back")
         choice = input("Select an option: ").strip()
         if choice == '1':
             modify_config_variables()
+        elif choice == '2' and daily_message_menu:
+            daily_message_menu()
         elif choice == '0':
             break
         else:

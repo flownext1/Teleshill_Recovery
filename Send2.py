@@ -123,7 +123,7 @@ async def join_group_with_all_accounts(target_group):
     joined_count = 0
     for account in all_accounts:
         try:
-            async with Client(f"pyrogram_sessions/{account}", api_id=api_id, api_hash=api_hash, phone_number=account) as client:
+            async with Client(f"session/{account}", api_id=api_id, api_hash=api_hash, phone_number=account) as client:
                 try:
                     if target_group.startswith('https://t.me/+') or target_group.startswith('https://t.me/joinchat/'):
                         # This is a private group invite link
@@ -503,7 +503,7 @@ async def wait_for_unlock(client, target_chat_id, check_interval=600):
         print("\n\nThe chat seems to be locked, checking if its unlocked now.\n\n")
         await asyncio.sleep(1)
         try:
-            if send_stickers:
+            if send_stickers and stickers_data:
                 random_sticker_id = secrets.choice(stickers_data)
                 # Attempt to send a sticker
                 await client.send_sticker(chat_id=target_chat_id, sticker=random_sticker_id)
@@ -615,7 +615,7 @@ image_iter = iter(image_paths)
 gif_iter = iter(gif_paths)
 
 async def send_random_sticker(client, target_chat_id):
-    if send_stickers:
+    if send_stickers and stickers_data:
         if stickers_data:
             # Select a random sticker ID from the list
 
@@ -931,7 +931,7 @@ async def main():
     # Check which accounts need session files created
     accounts_needing_sessions = []
     for account in all_accounts:
-        session_file = f"pyrogram_sessions/{account}.session"
+        session_file = f"session/{account}.session"
         if not os.path.exists(session_file):
             accounts_needing_sessions.append(account)
     
@@ -1210,7 +1210,7 @@ async def main():
 
     for account in all_accounts:
         print(f"Starting client for account: {account}")
-        async with Client(f"pyrogram_sessions/{account}", api_id=api_id, api_hash=api_hash, phone_number=account) as client:
+        async with Client(f"session/{account}", api_id=api_id, api_hash=api_hash, phone_number=account) as client:
             user_id = await get_user_ids(client)
             if user_id is not None:
                 user_ids.append(user_id)
@@ -1228,7 +1228,7 @@ async def main():
             print(f"\n\nCreating pyrogram_sessions for {phone}\n\n")
             client = None
             try:
-                client = Client(f"pyrogram_sessions/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
+                client = Client(f"session/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
                 print(f"Starting client for phone: {phone}")
                 await client.start()
                 print(f"Session created successfully for {phone}")
@@ -1274,7 +1274,7 @@ async def main():
             print(f"\n\nwe are trying to log into {phone}\n\n")
             client = None
             try:
-                client = Client(f"pyrogram_sessions/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
+                client = Client(f"session/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
                 print(f"Starting client for phone: {phone}")
                 await client.start()
                 print(f"Client Started for {phone}")
@@ -1380,9 +1380,9 @@ async def main():
                 continue
             except sqlite3.OperationalError as e:
                 print(f"SQLite error for account {phone}: {str(e)}. Deleting pyrogram_sessions and trying again.")
-                os.remove(f"pyrogram_sessions/{phone}.pyrogram_sessions")
+                os.remove(f"session/{phone}.session")
                 try:
-                    client = Client(f"pyrogram_sessions/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
+                    client = Client(f"session/{phone}", api_id=api_id, api_hash=api_hash, phone_number=phone)
                     await client.start()
                     print(f"Client Started for {phone} after recreating pyrogram_sessions")
                 except SessionPasswordNeeded:
